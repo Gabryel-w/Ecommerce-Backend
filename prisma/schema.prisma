@@ -1,10 +1,27 @@
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Order {
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  totalAmount Float
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
 }
