@@ -5,11 +5,11 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class OrdersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createOrder(data: {
     userId: number;
-    items: any[]; 
+    items: any[];
     total: number;
   }) {
     return this.prisma.order.create({
@@ -30,16 +30,15 @@ export class OrdersService {
   }
 
   async findOrdersByUser(userId: number) {
-  return this.prisma.order.findMany({
-    where: { userId },
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      orderItems: true,
-    },
-  });
-}
+    return this.prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        orderItems: true,
+      },
+    });
+
+  }
 
 
   async findOrderById(id: number) {
