@@ -30,13 +30,17 @@ export class OrdersService {
   }
 
   async findOrdersByUser(userId: number) {
-    return this.prisma.order.findMany({
-      where: { userId },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-  }
+  return this.prisma.order.findMany({
+    where: { userId },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      orderItems: true,
+    },
+  });
+}
+
 
   async findOrderById(id: number) {
     return this.prisma.order.findUnique({

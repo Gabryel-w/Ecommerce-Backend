@@ -8,7 +8,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signup(name: string, email: string, password: string) {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -23,7 +23,16 @@ export class AuthService {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) throw new UnauthorizedException('Invalid credentials');
 
-    return this.generateToken(user.id, user.email);
+    const token = this.jwtService.sign({ sub: user.id, email });
+
+    return {
+      token, 
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    };
   }
 
   private generateToken(userId: number, email: string) {
