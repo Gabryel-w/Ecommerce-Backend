@@ -15,20 +15,10 @@ API RESTful para plataforma e-commerce com autenticação JWT, gestão de pedido
 - Rotas protegidas por guardas de autenticação
 - Token expiration e renovação
 
-### 🗃️ Arquitetura Modular
-src/
-├── auth/ # Autenticação JWT
-├── orders/ # Gestão de pedidos
-├── products/ # Catálogo de produtos
-├── users/ # Gestão de usuários
-├── prisma/ # Schema e migrations
-└── shared/ # Utilitários comuns
-
 ### 📦 Gestão de Dados
 - ORM Prisma com SQLite (facil migração para PostgreSQL/MySQL)
 - Relações completas (User ↔ Order ↔ Product)
 - Validação de dados com class-validator
-- Paginação e filtros
 
 ### 🔌 Endpoints Principais
 | Método | Rota               | Descrição                     |
